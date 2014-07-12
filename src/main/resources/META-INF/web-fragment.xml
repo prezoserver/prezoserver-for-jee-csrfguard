@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:webfragment="http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" version="3.0">
+  <name>CSRFGuard</name>
+  <ordering>
+    <after>
+      <others/>
+    </after>
+  </ordering>
+  <context-param>
+    <param-name>Owasp.CsrfGuard.Config</param-name>
+    <param-value>WEB-INF/csrfguard/csrfguard.properties</param-value>
+  </context-param>
+  <context-param>
+    <param-name>Owasp.CsrfGuard.Config.Print</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.owasp.csrfguard.CsrfGuardHttpSessionListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>CSRFGuard</filter-name>
+    <filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CSRFGuard</filter-name>
+    <url-pattern>/api/*</url-pattern>
+  </filter-mapping>
+</web-fragment>
