@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:webfragment="http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd" version="3.0">
-  <name>CSRFGuard</name>
-  <ordering>
-    <after>
-      <others/>
-    </after>
-  </ordering>
-  <context-param>
-    <param-name>Owasp.CsrfGuard.Config</param-name>
-    <param-value>WEB-INF/csrfguard/csrfguard.properties</param-value>
-  </context-param>
-  <context-param>
-    <param-name>Owasp.CsrfGuard.Config.Print</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  <listener>
-    <listener-class>org.owasp.csrfguard.CsrfGuardHttpSessionListener</listener-class>
-  </listener>
-  <filter>
-    <filter-name>CSRFGuard</filter-name>
-    <filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>CSRFGuard</filter-name>
-    <url-pattern>/api/*</url-pattern>
-  </filter-mapping>
+    <name>CSRFGuard</name>
+
+    <ordering>
+        <after>
+            <others/>
+        </after>
+    </ordering>
+    
+    <!-- 
+    	If using the overlay configuration provider then set the param-value to
+    	just the name of the configuration file. It will be discovered via the 
+    	classpath.
+    	
+    	If using the properties configuration provider then set the param-value
+    	to the full path and file name of the configuration file.   
+    -->
+	<context-param>
+		<param-name>Owasp.CsrfGuard.Config</param-name>
+		<param-value>csrfguard.properties</param-value>
+	</context-param>
+		
+	<listener>
+		<listener-class>org.owasp.csrfguard.CsrfGuardServletContextListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>org.owasp.csrfguard.CsrfGuardHttpSessionListener</listener-class>
+	</listener>
+	
+	<filter>
+		<filter-name>CSRFGuard</filter-name>
+		<filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CSRFGuard</filter-name> 
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+	     <servlet-name>JavaScriptServlet</servlet-name>
+	     <servlet-class>org.owasp.csrfguard.servlet.JavaScriptServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+	     <servlet-name>JavaScriptServlet</servlet-name>
+	     <url-pattern>/aframe/js/csrf.js</url-pattern>
+	</servlet-mapping>
 </web-fragment>
