@@ -46,6 +46,6 @@
 
 	<servlet-mapping>
 	     <servlet-name>JavaScriptServlet</servlet-name>
-	     <url-pattern>/aframe/js/csrf.js</url-pattern>
+	     <url-pattern>/prezo/js/csrf.js</url-pattern>
 	</servlet-mapping>
 </web-fragment>
