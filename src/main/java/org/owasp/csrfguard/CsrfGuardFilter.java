@@ -55,8 +55,6 @@ public final class CsrfGuardFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
 		//maybe the short circuit to disable is set
-		Object o = CsrfGuard.getInstance().isEnabled();
-		
 		if (!CsrfGuard.getInstance().isEnabled()) {
 			filterChain.doFilter(request, response);
 			return;
